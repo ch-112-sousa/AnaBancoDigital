@@ -1,34 +1,46 @@
 ﻿using ContaCorrenteAPI.Domain.Command.Requests;
 using ContaCorrenteAPI.Domain.Command.Responses;
 using ContaCorrenteAPI.Domain.Entities;
+using ContaCorrenteAPI.Repositories;
+using MediatR;
 
 namespace ContaCorrenteAPI.Domain.Handlers
 {
-    public class CreateContaCorrenteHandler
+    public class CreateContaCorrenteHandler : IRequestHandler<CreateContaCorrenteRequest, CreateContaCorrenteResponse>
     {
-        ICustomerRepository _repository;
-        IEmailService _emailService;
+        private readonly IContaCorrenteRepository _contaCorrenteRepository;        
 
-        public CreateCustomerHandler(ICustomerRepository repository, IEmailService emailService)
+        public CreateContaCorrenteHandler(IContaCorrenteRepository contaCorrenteRepository)
         {
-            _repository = repository;
-            _emailService = emailService;
+            _contaCorrenteRepository = contaCorrenteRepository;            
         }
 
-        public CreateContaCorrenteResponse Handle(CreateContaCorrenteRequest command)
+        public async Task<CreateContaCorrenteResponse> Handle(CreateContaCorrenteRequest request, CancellationToken cancellationToken)
         {
-            
-            var customer = new ContaCorrente(command.Numero, command.Nome, true, command.Senha, command.Salt);
-
-            _repository.Save(customer);
-            
-            return new CreateContaCorrenteResponse
-            {
-                Id = customer.Id,
-                Name = customer.Name,
-                Email = customer.Email,
-                Date = DateTime.Now
+            var contaCorrente = new ContaCorrente()
+            { 
+                Ativo = true,
+                Numero = request.Numero,
+                Nome = request.Nome,
+                Senha = request.Senha,
+                Salt = request.Salt
             };
+
+            bool registroSalvo = await _contaCorrenteRepository.SaveAsync(contaCorrente);
+
+            if(registroSalvo)
+            {
+                var cc = new CreateContaCorrenteResponse()
+                {
+                    Nome = request.Nome,
+                    Numero = request.Numero,
+                    Error = string.Empty
+                }; 
+
+                return cc;
+            }
+
+            return new CreateContaCorrenteResponse() { Error = "Não foi possível salvar registro." };
         }
     }
 }

@@ -1,19 +1,23 @@
-using ContaCorrenteAPI.Domain.Handlers;
+using ContaCorrenteAPI.Repositories;
+using MediatR;
+using Microsoft.Data.SqlClient;
+using System.Data;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<ICreateContaCorrenteHandler, CreateContaCorrenteHandler>();
+var strConnection = builder.Configuration.GetConnectionString("ContaConnection");
 
+builder.Services.AddScoped<IDbConnection>(provider => new SqlConnection(strConnection));
+builder.Services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
+
+
+builder.Services.AddControllers();
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
-
-
 app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

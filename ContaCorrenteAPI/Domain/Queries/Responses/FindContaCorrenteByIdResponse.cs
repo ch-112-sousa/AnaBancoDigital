@@ -1,13 +1,10 @@
-﻿
-namespace ContaCorrenteAPI.Domain.Entities
+﻿namespace ContaCorrenteAPI.Domain.Queries.Responses
 {
-    public class ContaCorrente
+    public class FindContaCorrenteByIdResponse
     {
         public string IdContaCorrente { get; set; }
         public long Numero { get; set; }
         public string Nome { get; set; }
         public bool Ativo { get; set; }
-        public string Senha { get; set; }
-        public string Salt { get; set; }
     }
 }

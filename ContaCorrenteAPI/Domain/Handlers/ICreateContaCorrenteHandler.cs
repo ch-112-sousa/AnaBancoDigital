@@ -5,6 +5,6 @@ namespace ContaCorrenteAPI.Domain.Handlers
 {
     public interface ICreateContaCorrenteHandler
     {
-        CreateContaCorrenteResponse Handle (CreateContaCorrenteRequest request);
+       Task<CreateContaCorrenteResponse> HandleAsync (CreateContaCorrenteRequest request);
     }
 }
