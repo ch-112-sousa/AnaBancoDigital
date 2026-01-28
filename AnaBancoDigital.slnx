@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ContaCorrenteAPI/ContaCorrenteAPI.csproj" />
+  <Project Path="TransferenciaAPI/TransferenciaAPI.csproj" />
+</Solution>
