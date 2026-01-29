@@ -45,8 +45,8 @@ namespace ContaCorrenteAPI.Repositories
                 return false;
             }
 
-            var passwordHash = BCrypt.Net.BCrypt.HashPassword(senhaInput);
-            return BCrypt.Net.BCrypt.Verify(user.Senha, passwordHash);
+            var passwordHash = user.Senha;
+            return BCrypt.Net.BCrypt.Verify(senhaInput, passwordHash);
         }
 
         public string HashPassword(string senha)

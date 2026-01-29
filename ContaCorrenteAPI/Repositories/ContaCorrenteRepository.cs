@@ -246,7 +246,7 @@ namespace ContaCorrenteAPI.Repositories
 
             if (!senhaValida)
             {
-                return "senha inválida";
+                return "INVALID_DOCUMENT";
             }
 
             string sqlInativar = @"UPDATE [dbo].[contacorrente]
