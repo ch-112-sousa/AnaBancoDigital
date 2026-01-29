@@ -20,9 +20,8 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
         var user = await _userRepository.GetUserForAuthentication(model.NumeroContaCorrente);
-        var hashPassword = BCrypt.Net.BCrypt.HashPassword(model.Senha);
         
-        if (user == null || !BCrypt.Net.BCrypt.Verify(user.Senha, hashPassword))
+        if (user == null || !BCrypt.Net.BCrypt.Verify(model.Senha, user.Senha))
         { 
             return Unauthorized("USER_UNAUTHORIZED");
         }

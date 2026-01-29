@@ -141,7 +141,7 @@ namespace ContaCorrenteAPI.Repositories
             }
 
             contaCorrente.IdContaCorrente = Guid.NewGuid().ToString();
-
+            contaCorrente.Senha = _userRepository.HashPassword(contaCorrente.Senha);
             string sqlInsert = @"INSERT INTO [dbo].[contacorrente]
                                 (
                                          [idcontacorrente]
@@ -175,6 +175,8 @@ namespace ContaCorrenteAPI.Repositories
             {
                 return false;
             }
+
+            contaCorrente.Senha = _userRepository.HashPassword(contaCorrente.Senha);
 
             string sqlUpdate = @"UPDATE [dbo].[contacorrente]
                                      SET   [idcontacorrente] = @idcontacorrente

@@ -12,7 +12,7 @@ namespace ContaCorrenteAPI.Controllers
     {
         [HttpPost]
         [Route("")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create(
             [FromServices] IMediator mediator,
             [FromBody] CreateContaCorrenteRequest command
@@ -24,6 +24,7 @@ namespace ContaCorrenteAPI.Controllers
 
 
         [HttpPut("inativar")]
+        [Authorize]
         public async Task<ActionResult> Inativar(
             [FromServices] IMediator mediator,
             [FromBody] InativarContaCorrenteRequest command

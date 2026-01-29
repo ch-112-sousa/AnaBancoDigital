@@ -46,5 +46,10 @@
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(senhaInput);
             return BCrypt.Net.BCrypt.Verify(user.Senha, passwordHash);
         }
+
+        public string HashPassword(string senha)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(senha);
+        }
     }
 }
