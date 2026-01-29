@@ -22,7 +22,8 @@ namespace ContaCorrenteAPI.Controllers
 
             if(response.Info.Successo)
             {
-                return CreatedAtAction("RegistrarContaCorente", response);
+
+                return CreatedAtAction(nameof(Registrar), new { Numero = response.Numero, Nome = response.Nome }, response);
             }
 
             return BadRequest(response.Info.MensagensDeErroValidacao);

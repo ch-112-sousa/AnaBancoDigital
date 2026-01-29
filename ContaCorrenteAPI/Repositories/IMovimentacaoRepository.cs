@@ -6,6 +6,8 @@ namespace ContaCorrenteAPI.Repositories
     public interface IMovimentacaoRepository
     {
         Task<ResultadoBase> RegistrarMovimentacaoAsync(MovimentoConta movimento);
+        Task<ResultadoBase> AtualizarMovimentacaoAsync(MovimentoConta movimento);
+
 
     }
 }

@@ -279,7 +279,7 @@ namespace ContaCorrenteAPI.Repositories
             if (contaCorrente == null)
             {
                 res = new ResultadoBase() { Successo = false };
-                res.MensagensDeErroValidacao.Add("Paramentro conta corrente nulo.");
+                res.MensagensDeErroValidacao.Add("Parametro conta corrente nulo.");
                 return res;
             }
 

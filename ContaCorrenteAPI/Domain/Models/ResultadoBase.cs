@@ -9,6 +9,7 @@
         public ResultadoBase()
         {
             MensagensDeErro = new List<string>();
+            MensagensDeErroValidacao = new List<string>();
         }
     }
 }

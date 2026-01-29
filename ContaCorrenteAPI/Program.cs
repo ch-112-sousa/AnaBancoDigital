@@ -39,6 +39,7 @@ var strConnection = builder.Configuration.GetConnectionString("ContaConnection")
 builder.Services.AddTransient<IDbConnection>(provider => new SqlConnection(strConnection));
 
 builder.Services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
+builder.Services.AddScoped<IMovimentacaoRepository, MovimentacaoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 int expiryMinutes = Convert.ToInt32(builder.Configuration["JwtSettings:ExpiryMinutes"]);
@@ -52,6 +53,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo { Title = "Banco Digital", Version="v1" });
 });
 
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
