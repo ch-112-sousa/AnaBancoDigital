@@ -47,8 +47,19 @@ builder.Services.AddScoped<JwtService>(sp => new JwtService(secret, expiryMinute
 builder.Services.AddControllers();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo { Title = "Banco Digital", Version="v1" });
+});
+
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banco Digital V1");
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
