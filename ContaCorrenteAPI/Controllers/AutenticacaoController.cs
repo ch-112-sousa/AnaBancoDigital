@@ -5,12 +5,12 @@ using System.Reflection;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class AutenticacaoController : ControllerBase
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUsuarioRepository _userRepository;
     private readonly JwtService _jwtService;
 
-    public AuthController(IUserRepository userRepository, JwtService jwtService)
+    public AutenticacaoController(IUsuarioRepository userRepository, JwtService jwtService)
     {
         _userRepository = userRepository;
         _jwtService = jwtService;
@@ -19,14 +19,14 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
-        var user = await _userRepository.GetUserForAuthentication(model.NumeroContaCorrente);
+        var user = await _userRepository.ObterUsuarioParaAutenticacao(model.NumeroContaCorrente);
         
         if (user == null || !BCrypt.Net.BCrypt.Verify(model.Senha, user.Senha))
         { 
             return Unauthorized("USER_UNAUTHORIZED");
         }
 
-        var token = _jwtService.GenerateToken(user);
+        var token = _jwtService.GerarToken(user);
         return Ok(new { Token = token });
     } 
 }

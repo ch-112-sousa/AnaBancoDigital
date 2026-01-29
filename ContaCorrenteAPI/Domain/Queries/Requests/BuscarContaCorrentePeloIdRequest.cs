@@ -3,7 +3,7 @@ using MediatR;
 
 namespace ContaCorrenteAPI.Domain.Queries.Requests
 {
-    public class FindContaCorrenteByIdRequest : IRequest<FindContaCorrenteByIdResponse>
+    public class BuscarContaCorrentePeloIdRequest : IRequest<BuscarContaCorrentePeloIdResponse>
     {
         public string IdContaCorrente { get; set; }
     }

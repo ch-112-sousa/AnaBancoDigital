@@ -17,11 +17,11 @@ namespace ContaCorrenteAPI.Domain.Handlers
             _contaCorrenteRepository = contaCorrenteRepository;
         }
 
-        public async Task<FindContaCorrenteByIdResponse> Handle(FindContaCorrenteByIdRequest request, CancellationToken cancellationToken)
+        public async Task<BuscarContaCorrentePeloIdResponse> Handle(BuscarContaCorrentePeloIdRequest request, CancellationToken cancellationToken)
         {
             ContaCorrente cc = await _contaCorrenteRepository.GetContaCorrenteByIdAsync(request.IdContaCorrente);
 
-            var response = new FindContaCorrenteByIdResponse()
+            var response = new BuscarContaCorrentePeloIdResponse()
             {
                 IdContaCorrente = cc.IdContaCorrente,
                 Ativo = cc.Ativo,

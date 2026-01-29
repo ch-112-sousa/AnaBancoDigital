@@ -4,7 +4,7 @@ using ContaCorrenteAPI.Domain.Command.Responses;
 
 namespace ContaCorrenteAPI.Domain.Command.Requests;
 
-public class CreateContaCorrenteRequest : IRequest<CreateContaCorrenteResponse>
+public class RegistrarContaCorrenteRequest : IRequest<RegistrarContaCorrenteResponse>
 {
     public long Numero { get; set; }
     public string Nome { get; set; }

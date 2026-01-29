@@ -39,7 +39,7 @@ var strConnection = builder.Configuration.GetConnectionString("ContaConnection")
 builder.Services.AddTransient<IDbConnection>(provider => new SqlConnection(strConnection));
 builder.Services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
 builder.Services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 int expiryMinutes = Convert.ToInt32(builder.Configuration["JwtSettings:ExpiryMinutes"]);
 builder.Services.AddScoped<JwtService>(sp => new JwtService(secret, expiryMinutes, audience, issuer));

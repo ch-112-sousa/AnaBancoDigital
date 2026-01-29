@@ -10,9 +10,9 @@ namespace ContaCorrenteAPI.Repositories
     public class ContaCorrenteRepository : IContaCorrenteRepository
     {
         private readonly IDbConnection _dbConnection;
-        private readonly IUserRepository _userRepository;
+        private readonly IUsuarioRepository _userRepository;
 
-        public ContaCorrenteRepository(IDbConnection dbConnection, IUserRepository userRepository)  
+        public ContaCorrenteRepository(IDbConnection dbConnection, IUsuarioRepository userRepository)  
         {
             _dbConnection = dbConnection;
             _userRepository = userRepository;

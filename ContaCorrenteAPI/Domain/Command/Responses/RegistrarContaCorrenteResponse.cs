@@ -1,7 +1,7 @@
 ﻿namespace ContaCorrenteAPI.Domain.Command.Responses
 {
     [Serializable]
-    public class CreateContaCorrenteResponse  
+    public class RegistrarContaCorrenteResponse  
     {
         public long Numero { get; set;  }
         public string Nome { get; set; }

@@ -21,7 +21,7 @@
             _issuer = issuer;
         }
 
-        public string GenerateToken(User user)
+        public string GerarToken(UsuarioModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -42,8 +42,5 @@
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
-
-
     }
 }

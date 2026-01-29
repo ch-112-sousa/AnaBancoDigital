@@ -1,6 +1,6 @@
 ﻿namespace ContaCorrenteAPI.Authentication
 {
-    public class User
+    public class UsuarioModel
     {
         public int NumeroContaCorrente { get; set; }
         public string Nome{ get; set; }

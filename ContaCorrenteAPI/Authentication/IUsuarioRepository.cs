@@ -1,8 +1,8 @@
 ﻿namespace ContaCorrenteAPI.Authentication
 {
-    public interface IUserRepository
+    public interface IUsuarioRepository
     {
-        Task<User> GetUserForAuthentication(long numeroContaCorrente);
+        Task<UsuarioModel> ObterUsuarioParaAutenticacao(long numeroContaCorrente);
 
         Task<bool> SenhaValida(long numeroContaCorrente, string senhaInput);
 

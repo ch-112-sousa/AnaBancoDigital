@@ -1,6 +1,6 @@
 ﻿namespace ContaCorrenteAPI.Domain.Queries.Responses
 {
-    public class FindContaCorrenteByIdResponse
+    public class BuscarContaCorrentePeloIdResponse
     {
         public string IdContaCorrente { get; set; }
         public long Numero { get; set; }

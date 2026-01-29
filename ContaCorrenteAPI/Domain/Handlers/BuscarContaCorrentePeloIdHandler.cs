@@ -6,20 +6,20 @@ using MediatR;
 
 namespace ContaCorrenteAPI.Domain.Handlers
 {
-    public class FindContaCorrenteByIdHandler : IRequestHandler<FindContaCorrenteByIdRequest, FindContaCorrenteByIdResponse>
+    public class BuscarContaCorrentePeloIdHandler : IRequestHandler<BuscarContaCorrentePeloIdRequest, BuscarContaCorrentePeloIdResponse>
     {
         private readonly IContaCorrenteRepository _contaCorrenteRepository;
 
-        public FindContaCorrenteByIdHandler(IContaCorrenteRepository contaCorrenteRepository)
+        public BuscarContaCorrentePeloIdHandler(IContaCorrenteRepository contaCorrenteRepository)
         {
             _contaCorrenteRepository = contaCorrenteRepository;
         }
 
-        public async Task<FindContaCorrenteByIdResponse> Handle(FindContaCorrenteByIdRequest request, CancellationToken cancellationToken)
+        public async Task<BuscarContaCorrentePeloIdResponse> Handle(BuscarContaCorrentePeloIdRequest request, CancellationToken cancellationToken)
         {
             ContaCorrente cc = await _contaCorrenteRepository.GetContaCorrenteByIdAsync(request.IdContaCorrente);
 
-            var response = new FindContaCorrenteByIdResponse()
+            var response = new BuscarContaCorrentePeloIdResponse()
             {
                 IdContaCorrente = cc.IdContaCorrente,
                 Ativo = cc.Ativo,

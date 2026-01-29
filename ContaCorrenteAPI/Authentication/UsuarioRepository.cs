@@ -5,17 +5,17 @@
     using System.Data;
     using System.Threading.Tasks;
 
-    public class UserRepository : IUserRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly IDbConnection _connection;
 
-        public UserRepository(IDbConnection connection)
+        public UsuarioRepository(IDbConnection connection)
         {
             _connection = connection;
         }
 
 
-        public async Task<User> GetUserForAuthentication(long numeroContaCorrente)
+        public async Task<UsuarioModel> ObterUsuarioParaAutenticacao(long numeroContaCorrente)
         {
             const string sql = @"SELECT
                                    [numero] as NumeroContaCorrente
@@ -26,10 +26,10 @@
                               WHERE numero = @numero
                               and ativo = 1;";
 
-            User u;
+            UsuarioModel u;
             using (var conn = new SqlConnection(_connection.ConnectionString))
             {
-                u = await conn.QuerySingleOrDefaultAsync<User>(sql, new { numero = numeroContaCorrente });
+                u = await conn.QuerySingleOrDefaultAsync<UsuarioModel>(sql, new { numero = numeroContaCorrente });
             }
 
             return u;
@@ -37,7 +37,7 @@
 
         public async Task<bool> SenhaValida(long numeroContaCorrente, string senhaInput)
         {
-            var user = await GetUserForAuthentication(numeroContaCorrente);
+            var user = await ObterUsuarioParaAutenticacao(numeroContaCorrente);
             if (user == null)
             {
                 return false;

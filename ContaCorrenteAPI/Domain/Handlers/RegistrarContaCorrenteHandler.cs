@@ -6,16 +6,16 @@ using MediatR;
 
 namespace ContaCorrenteAPI.Domain.Handlers
 {
-    public class CreateContaCorrenteHandler : IRequestHandler<CreateContaCorrenteRequest, CreateContaCorrenteResponse>
+    public class RegistrarContaCorrenteHandler : IRequestHandler<RegistrarContaCorrenteRequest, RegistrarContaCorrenteResponse>
     {
         private readonly IContaCorrenteRepository _contaCorrenteRepository;        
 
-        public CreateContaCorrenteHandler(IContaCorrenteRepository contaCorrenteRepository)
+        public RegistrarContaCorrenteHandler(IContaCorrenteRepository contaCorrenteRepository)
         {
             _contaCorrenteRepository = contaCorrenteRepository;            
         }
 
-        public async Task<CreateContaCorrenteResponse> Handle(CreateContaCorrenteRequest request, CancellationToken cancellationToken)
+        public async Task<RegistrarContaCorrenteResponse> Handle(RegistrarContaCorrenteRequest request, CancellationToken cancellationToken)
         {
             var contaCorrente = new ContaCorrente()
             { 
@@ -30,7 +30,7 @@ namespace ContaCorrenteAPI.Domain.Handlers
 
             if(registroSalvo)
             {
-                var cc = new CreateContaCorrenteResponse()
+                var cc = new RegistrarContaCorrenteResponse()
                 {
                     Nome = request.Nome,
                     Numero = request.Numero,
@@ -40,7 +40,7 @@ namespace ContaCorrenteAPI.Domain.Handlers
                 return cc;
             }
 
-            return new CreateContaCorrenteResponse() { Error = "Não foi possível salvar registro." };
+            return new RegistrarContaCorrenteResponse() { Error = "Não foi possível salvar registro." };
         }
     }
 }
