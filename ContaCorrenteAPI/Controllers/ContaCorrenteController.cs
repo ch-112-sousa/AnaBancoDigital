@@ -10,8 +10,7 @@ namespace ContaCorrenteAPI.Controllers
     public class ContaCorrenteController : ControllerBase
     {
         [HttpPost]
-        [Route("")]
-        //[Authorize]
+        [Route("registrar")]
         public async Task<IActionResult> Create(
             [FromServices] IMediator mediator,
             [FromBody] RegistrarContaCorrenteRequest command
