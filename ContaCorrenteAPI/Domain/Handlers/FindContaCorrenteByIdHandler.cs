@@ -25,11 +25,13 @@ namespace ContaCorrenteAPI.Domain.Handlers
             
             ContaCorrente cc = await _contaCorrenteRepository.GetContaCorrenteByIdAsync(request.IdContaCorrente);
 
-            var response = new FindContaCorrenteByIdResponse();
-            response.IdContaCorrente = cc.IdContaCorrente;
-            response.Ativo = cc.Ativo;
-            response.Numero = cc.Numero;
-            response.Nome = cc.Nome;
+            var response = new FindContaCorrenteByIdResponse()
+            {
+                IdContaCorrente = cc.IdContaCorrente,
+                Ativo = cc.Ativo,
+                Numero = cc.Numero,
+                Nome = cc.Nome
+            };
 
             return response;
         }

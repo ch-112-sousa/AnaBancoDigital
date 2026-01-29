@@ -14,6 +14,28 @@ namespace ContaCorrenteAPI.Repositories
             _dbConnection = dbConnection;
         }
 
+        public async Task<ContaCorrente> GetContaCorrenteByNumeroENomeAsync(long numero, string nome)
+        {
+            ContaCorrente cc;
+            string sqlGetById = @"SELECT
+                           [idcontacorrente]
+                          ,[numero]
+                          ,[nome]
+                          ,[ativo]
+                          ,[senha]
+                          ,[salt]
+                      FROM [BancoContaCorrente].[dbo].[contacorrente]
+                      WHERE numero = @numeroContaCorrente
+                            and nome = @nome";
+
+            using (var conn = new SqlConnection(_dbConnection.ConnectionString))
+            {
+                cc = await conn.QueryFirstAsync<ContaCorrente>(sqlGetById, new { numeroContaCorrente = numero, nome = nome });
+            }
+
+            return cc;
+        }
+
         public async Task<ContaCorrente> GetContaCorrenteByIdAsync(string id)
         {
             ContaCorrente cc;
@@ -204,6 +226,6 @@ namespace ContaCorrenteAPI.Repositories
             }
 
             return true;
-        }
+        } 
     }
 }

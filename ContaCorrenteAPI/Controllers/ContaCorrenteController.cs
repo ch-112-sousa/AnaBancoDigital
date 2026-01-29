@@ -1,5 +1,6 @@
 ﻿using ContaCorrenteAPI.Domain.Command.Requests;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContaCorrenteAPI.Controllers
@@ -10,6 +11,7 @@ namespace ContaCorrenteAPI.Controllers
     {
         [HttpPost]
         [Route("")]
+        [Authorize]
         public async Task<IActionResult> Create(
             [FromServices] IMediator mediator,
             [FromBody] CreateContaCorrenteRequest command
