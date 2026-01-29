@@ -11,7 +11,7 @@ namespace ContaCorrenteAPI.Controllers
         //[Authorize]
         public async Task<IActionResult> Create(
                [FromServices] IMediator mediator,
-               [FromBody] RegistrarContaCorrenteRequest command
+               [FromBody] RegistrarMovimentacaoRequest command
            )
         {
             var response = await mediator.Send(command);

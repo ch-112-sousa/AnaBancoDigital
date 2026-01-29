@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace ContaCorrenteAPI.Controllers
 {
@@ -19,6 +18,7 @@ namespace ContaCorrenteAPI.Controllers
         )
         {
             var response = await mediator.Send(command);
+
             return Ok(response);
         }
 
