@@ -9,6 +9,7 @@ namespace ContaCorrenteAPI.Domain.Command.Requests
         public long NumeroContaCorrente { get; set; }
 
         public string TipoMovimentacao { get; set; }
-      
+
+        public float Valor { get; set; }
     }
 }

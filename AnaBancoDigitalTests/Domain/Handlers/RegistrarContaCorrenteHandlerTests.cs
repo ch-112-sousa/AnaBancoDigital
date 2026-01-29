@@ -2,6 +2,7 @@
 using ContaCorrenteAPI.Domain.Entities;
 using ContaCorrenteAPI.Domain.Handlers;
 using ContaCorrenteAPI.Repositories;
+using ContaCorrenteAPI.Domain.Models;
 using Moq;
 
 namespace AnaBancoDigitalTests.Domain.Handlers
@@ -24,7 +25,7 @@ namespace AnaBancoDigitalTests.Domain.Handlers
             c.Salt = "salt";
 
             _contaCorrenteRepositoryMock.Setup(repo => repo.SalvarRegistroAsync(It.IsAny<ContaCorrente>()))
-                .Returns(Task.FromResult(true));
+                .Returns(Task.FromResult(new ResultadoBase() { Successo = true }));
 
             var handler = new RegistrarContaCorrenteHandler(_contaCorrenteRepositoryMock.Object);
             var command = new RegistrarContaCorrenteRequest() 

@@ -11,19 +11,29 @@ namespace ContaCorrenteAPI.Controllers
     {
         [HttpPost]
         [Route("registrar")]
-        public async Task<IActionResult> Create(
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Registrar(
             [FromServices] IMediator mediator,
             [FromBody] RegistrarContaCorrenteRequest command
         )
         {
             var response = await mediator.Send(command);
 
-            return Ok(response);
+            if(response.Info.Successo)
+            {
+                return CreatedAtAction("RegistrarContaCorente", response);
+            }
+
+            return BadRequest(response.Info.MensagensDeErroValidacao);
         }
 
 
-        [HttpPut("inativar")]
+        [HttpPut]
+        [Route("inativar")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Inativar(
             [FromServices] IMediator mediator,
             [FromBody] InativarContaCorrenteRequest command
@@ -32,12 +42,12 @@ namespace ContaCorrenteAPI.Controllers
         {
             var response = await mediator.Send(command);
 
-            if(string.IsNullOrWhiteSpace(response.Error))
+            if (response.Info.Successo)
             {
                 return NoContent();
             }
 
-             return BadRequest(response.Error);            
+            return BadRequest(response.Info.MensagensDeErroValidacao); 
         }
     }
 }

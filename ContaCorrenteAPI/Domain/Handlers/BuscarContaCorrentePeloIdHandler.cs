@@ -17,7 +17,7 @@ namespace ContaCorrenteAPI.Domain.Handlers
 
         public async Task<BuscarContaCorrentePeloIdResponse> Handle(BuscarContaCorrentePeloIdRequest request, CancellationToken cancellationToken)
         {
-            ContaCorrente cc = await _contaCorrenteRepository.GetContaCorrenteByIdAsync(request.IdContaCorrente);
+            ContaCorrente cc = await _contaCorrenteRepository.ObterContaCorrentePeloIdAsync(request.IdContaCorrente);
 
             var response = new BuscarContaCorrentePeloIdResponse()
             {

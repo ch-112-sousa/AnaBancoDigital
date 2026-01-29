@@ -9,6 +9,7 @@ namespace ContaCorrenteAPI.Domain.Handlers
         public async Task<RegistrarMovimentacaoResponse> Handle(RegistrarMovimentacaoRequest request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+            
         }
     }
 }

@@ -8,39 +8,50 @@ namespace ContaCorrenteAPI.Domain.Handlers
 {
     public class RegistrarContaCorrenteHandler : IRequestHandler<RegistrarContaCorrenteRequest, RegistrarContaCorrenteResponse>
     {
-        private readonly IContaCorrenteRepository _contaCorrenteRepository;        
+        private readonly IContaCorrenteRepository _contaCorrenteRepository;
 
         public RegistrarContaCorrenteHandler(IContaCorrenteRepository contaCorrenteRepository)
         {
-            _contaCorrenteRepository = contaCorrenteRepository;            
+            _contaCorrenteRepository = contaCorrenteRepository;
         }
 
         public async Task<RegistrarContaCorrenteResponse> Handle(RegistrarContaCorrenteRequest request, CancellationToken cancellationToken)
         {
-            var contaCorrente = new ContaCorrente()
-            { 
-                Ativo = true,
-                Numero = request.Numero,
-                Nome = request.Nome,
-                Senha = request.Senha,
-                Salt = request.Salt
-            };
-
-            bool registroSalvo = await _contaCorrenteRepository.SalvarRegistroAsync(contaCorrente);
-
-            if(registroSalvo)
+            try
             {
-                var cc = new RegistrarContaCorrenteResponse()
+                var contaCorrente = new ContaCorrente()
                 {
-                    Nome = request.Nome,
+                    Ativo = true,
                     Numero = request.Numero,
-                    Error = string.Empty
-                }; 
+                    Nome = request.Nome,
+                    Senha = request.Senha,
+                    Salt = request.Salt
+                };
 
-                return cc;
+                var res = await _contaCorrenteRepository.SalvarRegistroAsync(contaCorrente);
+
+                if (res.Successo)
+                {
+                    var contaResponse = new RegistrarContaCorrenteResponse()
+                    {
+                        Nome = request.Nome,
+                        Numero = request.Numero,
+                        Info = res
+                    };
+
+                    return contaResponse;
+                }
+
+                var response = new RegistrarContaCorrenteResponse() { Info = res };
+                return response;
             }
-
-            return new RegistrarContaCorrenteResponse() { Error = "Não foi possível salvar registro." };
+            catch
+            {
+                var response = new RegistrarContaCorrenteResponse();
+                response.Info = new Models.ResultadoBase() { Successo = false };
+                response.Info.MensagensDeErro.Add("Erro ao registrar uma conta corrente(handler).");
+                return response;
+            }
         }
     }
 }

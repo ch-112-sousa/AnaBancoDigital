@@ -12,13 +12,21 @@ namespace ContaCorrenteAPI.Controllers
         [HttpPost]
         [Route("registrar")]
         [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(
                [FromServices] IMediator mediator,
                [FromBody] RegistrarMovimentacaoRequest command
            )
         {
             var response = await mediator.Send(command);
-            return Ok(response);
+
+            if (response.Info.Successo)
+            {
+                return NoContent();
+            }
+
+            return BadRequest(response.Info.MensagensDeErroValidacao);
         }
     }
 }

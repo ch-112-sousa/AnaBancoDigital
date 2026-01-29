@@ -19,7 +19,7 @@ namespace ContaCorrenteAPI.Domain.Handlers
 
         public async Task<BuscarContaCorrentePeloIdResponse> Handle(BuscarContaCorrentePeloIdRequest request, CancellationToken cancellationToken)
         {
-            ContaCorrente cc = await _contaCorrenteRepository.GetContaCorrenteByIdAsync(request.IdContaCorrente);
+            ContaCorrente cc = await _contaCorrenteRepository.ObterContaCorrentePeloIdAsync(request.IdContaCorrente);
 
             var response = new BuscarContaCorrentePeloIdResponse()
             {
@@ -34,12 +34,10 @@ namespace ContaCorrenteAPI.Domain.Handlers
 
         public async Task<InativarContaCorrenteResponse> Handle(InativarContaCorrenteRequest request, CancellationToken cancellationToken)
         {
-            string msgErro = await _contaCorrenteRepository.InativarContaCorrentePeloNumeroAsync(request.NumeroContaCorrente, request.Senha);
+            var resultadoBase = await _contaCorrenteRepository.InativarContaCorrentePeloNumeroAsync(request.NumeroContaCorrente, request.Senha);
 
-            var response = new InativarContaCorrenteResponse();
-            response.Error = msgErro;
-
-            return response;
+            var inativarResponse = new InativarContaCorrenteResponse() { Info = resultadoBase };
+            return inativarResponse;
         }
     }
 }
