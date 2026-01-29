@@ -1,8 +1,6 @@
 ﻿using ContaCorrenteAPI.Authentication;
 using ContaCorrenteAPI.Repositories;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -14,7 +14,7 @@ namespace ContaCorrenteAPI.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create(
+        public async Task<IActionResult> Registrar(
                [FromServices] IMediator mediator,
                [FromBody] RegistrarMovimentacaoRequest command
            )
