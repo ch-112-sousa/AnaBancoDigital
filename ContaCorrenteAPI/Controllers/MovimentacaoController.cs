@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContaCorrenteAPI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class MovimentacaoController : ControllerBase
     {
         [HttpPost]

@@ -1,4 +1,6 @@
-﻿namespace ContaCorrenteAPI.Authentication
+﻿using ContaCorrenteAPI.Authentication;
+
+namespace ContaCorrenteAPI.Repositories
 {
     using Dapper;
     using Microsoft.Data.SqlClient;

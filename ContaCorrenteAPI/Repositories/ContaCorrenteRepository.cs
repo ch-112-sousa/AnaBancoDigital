@@ -3,7 +3,6 @@ using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.Identity;
-using ContaCorrenteAPI.Authentication;
 
 namespace ContaCorrenteAPI.Repositories
 {
@@ -61,25 +60,32 @@ namespace ContaCorrenteAPI.Repositories
             return cc;
         }
 
-        public async Task<bool> SaveAsync(ContaCorrente contaCorrente)
+        public async Task<bool> SalvarRegistroAsync(ContaCorrente contaCorrente)
         {
-            if (contaCorrente == null || contaCorrente.Numero <= 0)
+            try
+            {
+                if (contaCorrente == null || contaCorrente.Numero <= 0)
+                {
+                    return false;
+                }
+
+                bool existe;
+
+                existe = await ExistsContaCorrenteByNumeroAsync(contaCorrente.Numero);
+
+                if (existe)
+                {
+                    var cc = await GetContaCorrenteByNumeroAsync(contaCorrente.Numero);
+                    contaCorrente.IdContaCorrente = string.IsNullOrWhiteSpace(cc?.IdContaCorrente) ? string.Empty : cc.IdContaCorrente;
+                    return await UpdateAsync(contaCorrente);
+                }
+
+                return await InsertAsync(contaCorrente);
+            }
+            catch
             {
                 return false;
             }
-
-            bool existe;
-
-            existe = await ExistsContaCorrenteByNumeroAsync(contaCorrente.Numero);
-
-            if (existe)
-            {
-                var cc = await GetContaCorrenteByNumeroAsync(contaCorrente.Numero);
-                contaCorrente.IdContaCorrente = string.IsNullOrWhiteSpace(cc?.IdContaCorrente) ? string.Empty : cc.IdContaCorrente;
-                return await UpdateAsync(contaCorrente);
-            }
-
-            return await InsertAsync(contaCorrente);
         }
 
 

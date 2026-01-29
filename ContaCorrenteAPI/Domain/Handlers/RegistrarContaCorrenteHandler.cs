@@ -26,7 +26,7 @@ namespace ContaCorrenteAPI.Domain.Handlers
                 Salt = request.Salt
             };
 
-            bool registroSalvo = await _contaCorrenteRepository.SaveAsync(contaCorrente);
+            bool registroSalvo = await _contaCorrenteRepository.SalvarRegistroAsync(contaCorrente);
 
             if(registroSalvo)
             {

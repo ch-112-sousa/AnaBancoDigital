@@ -1,4 +1,6 @@
-﻿namespace ContaCorrenteAPI.Authentication
+﻿using ContaCorrenteAPI.Authentication;
+
+namespace ContaCorrenteAPI.Repositories
 {
     public interface IUsuarioRepository
     {

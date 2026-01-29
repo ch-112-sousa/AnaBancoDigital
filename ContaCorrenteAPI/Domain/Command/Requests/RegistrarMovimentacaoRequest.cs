@@ -5,5 +5,10 @@ namespace ContaCorrenteAPI.Domain.Command.Requests
 {
     public class RegistrarMovimentacaoRequest : IRequest<RegistrarMovimentacaoResponse>
     {
+
+        public long NumeroContaCorrente { get; set; }
+
+        public string TipoMovimentacao { get; set; }
+      
     }
 }

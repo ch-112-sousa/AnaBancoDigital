@@ -2,5 +2,6 @@
 {
     public class RegistrarMovimentacaoResponse
     {
+        public string Erro { get; set; }
     }
 }

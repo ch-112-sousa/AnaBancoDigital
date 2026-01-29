@@ -37,7 +37,7 @@ builder.Services.AddAuthorization();
 
 var strConnection = builder.Configuration.GetConnectionString("ContaConnection");
 builder.Services.AddTransient<IDbConnection>(provider => new SqlConnection(strConnection));
-builder.Services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
+
 builder.Services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
