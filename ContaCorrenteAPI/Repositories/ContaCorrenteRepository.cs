@@ -2,16 +2,20 @@
 using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Identity;
+using ContaCorrenteAPI.Authentication;
 
 namespace ContaCorrenteAPI.Repositories
 {
     public class ContaCorrenteRepository : IContaCorrenteRepository
     {
         private readonly IDbConnection _dbConnection;
+        private readonly IUserRepository _userRepository;
 
-        public ContaCorrenteRepository(IDbConnection dbConnection)
+        public ContaCorrenteRepository(IDbConnection dbConnection, IUserRepository userRepository)  
         {
             _dbConnection = dbConnection;
+            _userRepository = userRepository;
         }
 
         public async Task<ContaCorrente> GetContaCorrenteByNumeroENomeAsync(long numero, string nome)
@@ -226,6 +230,35 @@ namespace ContaCorrenteAPI.Repositories
             }
 
             return true;
+        }
+
+        public async Task<string> InativarContaCorrentePeloNumeroAsync(long numeroContaCorrente, string senha)
+        {
+            bool senhaValida = await _userRepository.SenhaValida(numeroContaCorrente, senha);
+
+            if (!senhaValida)
+            {
+                return "senha inválida";
+            }
+
+            string sqlInativar = @"UPDATE [dbo].[contacorrente]
+                                     SET   
+                                          [ativo] = 0                                          
+                                     WHERE numero = @numero;";
+
+
+            int inativarAffectedRows = 0;
+            using (var conn = new SqlConnection(_dbConnection.ConnectionString))
+            {
+                inativarAffectedRows = await conn.ExecuteAsync(sqlInativar, new { numero = numeroContaCorrente });
+            }
+
+            if(inativarAffectedRows > 0)
+            {
+                return string.Empty;
+            }
+
+            return "Erro ao inativar registro conta corrente: " + numeroContaCorrente;
         } 
     }
 }

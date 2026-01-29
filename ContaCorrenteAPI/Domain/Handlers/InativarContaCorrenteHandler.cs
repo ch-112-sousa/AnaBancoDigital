@@ -1,4 +1,6 @@
-﻿using ContaCorrenteAPI.Domain.Entities;
+﻿using ContaCorrenteAPI.Domain.Command.Requests;
+using ContaCorrenteAPI.Domain.Command.Responses;
+using ContaCorrenteAPI.Domain.Entities;
 using ContaCorrenteAPI.Domain.Queries.Requests;
 using ContaCorrenteAPI.Domain.Queries.Responses;
 using ContaCorrenteAPI.Repositories;
@@ -6,11 +8,11 @@ using MediatR;
 
 namespace ContaCorrenteAPI.Domain.Handlers
 {
-    public class FindContaCorrenteByIdHandler : IRequestHandler<FindContaCorrenteByIdRequest, FindContaCorrenteByIdResponse>
+    public class InativarContaCorrenteHandler : IRequestHandler<InativarContaCorrenteRequest, InativarContaCorrenteResponse>
     {
         private readonly IContaCorrenteRepository _contaCorrenteRepository;
 
-        public FindContaCorrenteByIdHandler(IContaCorrenteRepository contaCorrenteRepository)
+        public InativarContaCorrenteHandler(IContaCorrenteRepository contaCorrenteRepository)
         {
             _contaCorrenteRepository = contaCorrenteRepository;
         }
@@ -26,6 +28,16 @@ namespace ContaCorrenteAPI.Domain.Handlers
                 Numero = cc.Numero,
                 Nome = cc.Nome
             };
+
+            return response;
+        }
+
+        public async Task<InativarContaCorrenteResponse> Handle(InativarContaCorrenteRequest request, CancellationToken cancellationToken)
+        {
+            string msgErro = await _contaCorrenteRepository.InativarContaCorrentePeloNumeroAsync(request.NumeroContaCorrente, request.Senha);
+
+            var response = new InativarContaCorrenteResponse();
+            response.Error = msgErro;
 
             return response;
         }

@@ -6,5 +6,6 @@ namespace ContaCorrenteAPI.Repositories
     {
         Task<ContaCorrente> GetContaCorrenteByIdAsync(string idContaCorrente);
         Task<bool> SaveAsync(ContaCorrente contaCorrente);
+        Task<string> InativarContaCorrentePeloNumeroAsync(long numeroContaCorrente, string senha);
     }
 }
